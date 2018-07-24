@@ -1,15 +1,51 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Weather Ionic
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+
   <ion-list>
-    <ion-item *ngFor="let user of users">
-      {{ user.name }}
+    <ion-item>
+      <ion-input placeholder="City Name" [(ngModel)]="cityName"></ion-input>
     </ion-item>
   </ion-list>
+  <button ion-button block (click)="getData()">Show Weather</button>
+  <br/>
+  <ion-card no-margin>
+    <ion-item-divider color="light">
+      City Map
+    </ion-item-divider>
+    <img src="{{mapLocation}}" />
+  </ion-card>
+
+  <ion-card no-margin>
+    <ion-item-divider color="light">
+      Location Details
+    </ion-item-divider>
+    <ion-item> City: {{ weatherInfo.name }} </ion-item>
+    <ion-item *ngIf="weatherInfo.sys"> Country {{ weatherInfo.sys.country }} </ion-item>
+    <ion-item *ngIf="weatherInfo.coord"> Coordinates {{ weatherInfo.coord.lon }}, {{ weatherInfo.coord.lat }} </ion-item>
+  </ion-card>
+
+  <ion-card no-margin>
+    <ion-item-divider color="light">
+      Weather Details
+    </ion-item-divider>
+
+    <ion-item *ngIf="weatherInfo.main"> Temperature: {{ weatherInfo.main.temp }} </ion-item>
+    <ion-item *ngIf="weatherInfo.main"> Pressure: {{ weatherInfo.main.pressure }} </ion-item>
+    <ion-item *ngIf="weatherInfo.main"> Humidity: {{ weatherInfo.main.humidity }}% </ion-item>
+  </ion-card>
+
+  <ion-card no-margin *ngIf="weatherInfo.wind">
+      <ion-item-divider color="light">
+        Wind Details
+      </ion-item-divider>
+      <ion-item> Speed: {{weatherInfo.wind.speed }} </ion-item>
+      <ion-item> Angle: {{weatherInfo.wind.deg }} </ion-item>
+    </ion-card>
 </ion-content>
